@@ -5,6 +5,6 @@
     </dependencies>
     
     <feature spec="subsystem.ee.service.default-bindings">
-        <param name="datasource" value="java:jboss/datasources/${env.INFORMIX_DATASOURCE:MyINFORMIXDS}"/>
+        <param name="datasource" value="java:jboss/datasources/${env.INFORMIX_DATASOURCE:INFORMIXDS}"/>
     </feature>
 </layer-spec>

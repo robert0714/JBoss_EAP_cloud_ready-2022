@@ -40,8 +40,8 @@ reference: https://www.elastic.co/guide/en/observability/current/ingest-traces.h
 Galleon Layers
 =========
 
-* `informix-default-datasource`: Provision the `MyINFORMIXDS` non xa datasource and configure it as the default one. Depends on `mysql-datasource` layer.
-* `informix-datasource`: Provision the `MyINFORMIXDS` non xa datasource. Depends on `informix-driver` layer.
+* `informix-default-datasource`: Provision the `INFORMIXDS` non xa datasource and configure it as the default one. Depends on `informix-datasource` layer.
+* `informix-datasource`: Provision the `INFORMIXDS` non xa datasource. Depends on `informix-driver` layer.
 * `informix-driver`: Provision the `informix` driver. This layer installs the JBoss Modules module `com.infomix.jdbc`.
 
 Configuration
