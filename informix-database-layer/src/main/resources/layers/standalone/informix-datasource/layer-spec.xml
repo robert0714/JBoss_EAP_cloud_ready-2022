@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<layer-spec xmlns="urn:jboss:galleon:layer-spec:1.0" name="informix-datasource">
+    <dependencies>
+        <layer name="informix-driver" />
+    </dependencies>
+    <feature spec="subsystem.datasources.data-source">
+        <param name="use-ccm" value="true" />
+        <param name="data-source" value="MyINFORMIXDS" />
+        <param name="enabled" value="${org.wildfly.datasources.informix.enabled, env.INFORMIX_ENABLED:true}"/>
+        <param name="use-java-context" value="true" /> 
+        <param name="jndi-name" value="${org.wildfly.datasources.informix.jndi-name,env.INFORMIX:java:jboss/datasources/${org.wildfly.datasources.informix.datasource,env.INFORMIX_DATASOURCE:MyINFORMIXDS}}"/>
+        <param name="connection-url" value="${org.wildfly.datasources.informix.connection-url,env.INFORMIX_URL:jdbc:informix-sqli://${org.wildfly.datasources.informix.host,env.INFORMIX_SERVICE_HOST,env.INFORMIX_HOST:localhost}:${org.wildfly.datasources.informix.port,env.INFORMIX_SERVICE_PORT,env.INFORMIX_PORT:9088}/${org.wildfly.datasources.informix.database,env.INFORMIX_DATABASE}}"/>
+        <param name="driver-name" value="informix" /> 
+        <param name="user-name" value="${org.wildfly.datasources.informix.user-name,env.INFORMIX_USER}"/>
+        <param name="password" value="${org.wildfly.datasources.informix.password,env.INFORMIX_PASSWORD}"/>
+        <param name="validate-on-match" value="${org.wildfly.datasources.informix.validate-on-match,env.INFORMIX_VALIDATE_ON_MATCH:true}"/>
+        <param name="exception-sorter-class-name" value="${org.wildfly.datasources.informix.exception-sorter-class-name, env.INFORMIX_EXCEPTION_SORTER:org.jboss.jca.adapters.jdbc.extensions.informix.InformixExceptionSorter}"/>
+        <param name="background-validation"  value="${org.wildfly.datasources.informix.background-validation,env.INFORMIX_BACKGROUND_VALIDATION:false}"/>
+        <param name="background-validation-millis" value="${org.wildfly.datasources.informix.background-validation-millis,env.INFORMIX_BACKGROUND_VALIDATION_MILLIS:6000}"/>
+        <param name="check-valid-connection-sql" value="select 1 from sysmaster:sysdual" />
+        <param name="flush-strategy" value="${org.wildfly.datasources.informix.flush-strategy,env.INFORMIX_FLUSH_STRATEGY:IdleConnections}"/>
+        <param name="statistics-enabled" value="${wildfly.datasources.statistics-enabled:${wildfly.statistics-enabled:false}}" />
+    </feature>
+</layer-spec>

@@ -1,5 +1,6 @@
 package com.redhat.example.weather;
 
+import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 
@@ -26,7 +27,7 @@ public class DatabaseConnectionHealthCheck implements HealthCheck {
     public HealthCheckResponse call() {
 
         HealthCheckResponseBuilder responseBuilder = HealthCheckResponse.named("Database sql connection health check");
-        try (var connection = datasource.getConnection()) {
+        try (final Connection connection = datasource.getConnection()) {
             boolean isValid = connection.isValid(5);
 
             DatabaseMetaData metaData = connection.getMetaData();

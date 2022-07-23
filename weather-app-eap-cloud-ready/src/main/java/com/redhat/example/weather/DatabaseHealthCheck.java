@@ -1,8 +1,10 @@
 package com.redhat.example.weather;
 
-import javax.enterprise.context.ApplicationScoped;
 import java.io.IOException;
 import java.net.Socket;
+
+import javax.enterprise.context.ApplicationScoped;
+
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
 import org.eclipse.microprofile.health.HealthCheckResponseBuilder;
@@ -37,7 +39,7 @@ public class DatabaseHealthCheck implements HealthCheck {
     }
 
     private void pingServer(String dbhost, int port) throws IOException {
-        var socket = new Socket(dbhost, port);
+        final Socket socket = new Socket(dbhost, port);
         socket.close();
 
     }
