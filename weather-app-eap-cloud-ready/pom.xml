@@ -16,7 +16,7 @@
         <version.server.bom>7.4.1.GA</version.server.bom>
         <version.microprofile.bom>3.0.0.GA-7.4.1.GA</version.microprofile.bom>
         <bootable.jar.maven.plugin.version>4.1.0.Final-redhat-00001</bootable.jar.maven.plugin.version>
-        <version.wildfly.galleon.pack>3.0.0.GA-redhat-00005</version.wildfly.galleon.pack>
+        <version.wildfly.galleon.pack>3.0.0.GA-redhat-00014</version.wildfly.galleon.pack>
     </properties>
 
     <dependencyManagement>

@@ -37,6 +37,9 @@ reference: https://www.elastic.co/guide/en/observability/current/ingest-traces.h
 -Djboss.bind.address=0.0.0.0
 ```
 
+## Testsuite Example
+* https://github.com/wildfly-extras/wildfly-datasources-galleon-pack/blob/main/testsuite/bootablejar/src/test/java/org/wildfly/datasources/test/SimpleTestCase.java
+
 Galleon Layers
 =========
 

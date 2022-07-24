@@ -14,8 +14,9 @@
 
     <properties>
         <version.org.informix>4.50.8</version.org.informix>
-        <version.wildfly.galleon.pack>3.0.0.GA-redhat-00005</version.wildfly.galleon.pack>
-        <version.wildfly.galleon.maven.plugin>5.2.4.Final</version.wildfly.galleon.maven.plugin>
+        <version.wildfly.galleon.pack>3.0.0.GA-redhat-00014</version.wildfly.galleon.pack>
+        <version.wildfly.galleon.maven.plugin>5.2.11.Final</version.wildfly.galleon.maven.plugin>
+        <version.org.wildfly>26.1.1.Final</version.org.wildfly>
     </properties>
 
     <dependencies>
@@ -26,6 +27,10 @@
             <version>${version.org.informix}</version>
         </dependency>
         <dependency>
+       <!-- <groupId>org.wildfly</groupId>
+            <artifactId>wildfly-ee-galleon-pack</artifactId> 
+            <version>${version.org.wildfly}</version>
+            <type>zip</type>     -->
             <groupId>org.jboss.eap</groupId>
             <artifactId>wildfly-galleon-pack</artifactId>
             <version>${version.wildfly.galleon.pack}</version>

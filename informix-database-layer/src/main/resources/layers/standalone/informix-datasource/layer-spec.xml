@@ -5,7 +5,7 @@
     </dependencies>
     <feature spec="subsystem.datasources.data-source">
         <param name="use-ccm" value="true" />
-        <param name="data-source" value="MyINFORMIXDS" />
+        <param name="data-source" value="INFORMIXDS" />
         <param name="enabled" value="${org.wildfly.datasources.informix.enabled, env.INFORMIX_ENABLED:true}"/>
         <param name="use-java-context" value="true" /> 
         <param name="jndi-name" value="${org.wildfly.datasources.informix.jndi-name,env.INFORMIX:java:jboss/datasources/${org.wildfly.datasources.informix.datasource,env.INFORMIX_DATASOURCE:MyINFORMIXDS}}"/>
