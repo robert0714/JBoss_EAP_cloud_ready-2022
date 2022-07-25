@@ -1,6 +1,6 @@
-create table IF NOT EXISTS City (id varchar(255) not null, humidity integer, maxTemp integer, minTemp integer,  temp integer, tempFeelsLike integer, weatherType varchar(255), wind integer, primary key (id))
-create table IF NOT EXISTS Country (id varchar(255) not null, name varchar(255), primary key (id))
-create table IF NOT EXISTS Country_City (Country_id varchar(255)not null, cities_id varchar(255) not null)
+create table IF NOT EXISTS City (id varchar(255) not null, name  varchar(255) ,humidity integer, maxTemp integer, minTemp integer,  temp integer, tempFeelsLike integer, weatherType varchar(255), wind integer, primary key (id));
+create table IF NOT EXISTS Country (id varchar(255) not null, name varchar(255), primary key (id));
+create table IF NOT EXISTS Country_City (Country_id varchar(255)not null, cities_id varchar(255) not null);
 
 
 insert into City(id, name, weatherType, temp, maxTemp, minTemp, tempFeelsLike, wind) values ('lon','London', 'sunny', 9, 11, 7, 9, 3);

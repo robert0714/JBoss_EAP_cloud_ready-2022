@@ -13,30 +13,51 @@
 
     <properties>
         <failOnMissingWebXml>false</failOnMissingWebXml>
-        <version.server.bom>7.4.1.GA</version.server.bom>
-        <version.microprofile.bom>3.0.0.GA-7.4.1.GA</version.microprofile.bom>
+   <!-- <version.server.bom>7.4.1.GA</version.server.bom>
+        <version.microprofile.bom>3.0.0.GA-7.4.1.GA</version.microprofile.bom> -->
         <bootable.jar.maven.plugin.version>4.1.0.Final-redhat-00001</bootable.jar.maven.plugin.version>
-        <version.wildfly.galleon.pack>3.0.0.GA-redhat-00014</version.wildfly.galleon.pack>
+        <version.wildfly.galleon.pack>3.0.0.GA-redhat-00014</version.wildfly.galleon.pack> 
+        
+        <version.wildfly>26.1.1.Final</version.wildfly>
+        <version.wildfly.maven.plugin>7.0.2.Final</version.wildfly.maven.plugin> 
     </properties>
 
     <dependencyManagement>
         <dependencies>
-            <!-- importing the jakartaee8-with-tools BOM adds specs and other useful artifacts as managed dependencies -->
+            <!-- importing the jakartaee8-with-tools BOM adds specs and other useful artifacts as managed dependencies
             <dependency>
                 <groupId>org.jboss.bom</groupId>
                 <artifactId>jboss-eap-jakartaee8</artifactId>
                 <version>${version.server.bom}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-            <!-- importing the microprofile BOM adds MicroProfile specs -->
+            </dependency> -->
+            <!-- importing the microprofile BOM adds MicroProfile specs
             <dependency>
                 <groupId>org.jboss.bom</groupId>
                 <artifactId>jboss-eap-xp-microprofile</artifactId>
                 <version>${version.microprofile.bom}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
+            </dependency> -->
+            
+            <!-- importing the jakartaee8-with-tools BOM adds specs and other useful artifacts as managed dependencies -->
+            <dependency>
+                <groupId>org.wildfly.bom</groupId>
+                <artifactId>wildfly-jakartaee8-with-tools</artifactId>
+                <version>${version.wildfly}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>  
+            
+            <!-- importing the microprofile BOM adds MicroProfile specs -->
+            <dependency>
+			    <groupId>org.wildfly.bom</groupId>
+			    <artifactId>wildfly-microprofile</artifactId>
+			    <version>${version.wildfly}</version>
+			    <scope>import</scope>
+			    <type>pom</type>
+			</dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -107,14 +128,22 @@
                 <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-jar-maven-plugin</artifactId>
                 <version>${bootable.jar.maven.plugin.version}</version>
+          <!--  <version>${version.wildfly.maven.plugin}</version> -->
                 <configuration>
                     <feature-packs>
                         <feature-pack>
                             <location>org.jboss.eap:wildfly-galleon-pack:${version.wildfly.galleon.pack}</location>
+                   <!--     <location>wildfly@maven(org.jboss.universe:community-universe)#${version.wildfly}</location>  -->
                         </feature-pack>
-                        <feature-pack>
+               <!--     <feature-pack>
                             <groupId>com.redhat.examples</groupId>
                             <artifactId>postgresql-layer</artifactId>
+                            <version>1.0.0</version>
+                        </feature-pack> -->
+                        
+                        <feature-pack>
+                            <groupId>com.redhat.examples</groupId>
+                            <artifactId>informix-layer</artifactId>
                             <version>1.0.0</version>
                         </feature-pack>
                     </feature-packs>
@@ -122,7 +151,9 @@
                     <layers>
                         <layer>jaxrs-server</layer>
                         <layer>microprofile-platform</layer>
-                        <layer>postgresql-datasource</layer>
+                        <layer>informix-driver</layer>
+                        <layer>informix-datasource</layer>
+                        <layer>jpa</layer>
                     </layers>
                     <cloud/>
                 </configuration>
