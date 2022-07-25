@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?> 
 <module xmlns="urn:jboss:module:1.0" name="com.ibm.informix" >
 	<resources>
-		<artifact name="${com.ibm.informix:jdbc:4.10.14}"/>
+		<artifact name="${com.ibm.informix:jdbc}"/>
 	</resources>
 	<dependencies>
 	    <module name="java.transaction.xa"/>

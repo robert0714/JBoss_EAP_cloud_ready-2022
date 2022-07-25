@@ -1,5 +1,5 @@
 # add jdbc jar
-module add --name=com.ibm.informix --resources=target/informix-jdbc-4.10.14.jar --dependencies=javax.api,javax.transaction.api
+# module add --name=com.ibm.informix --resources=target/informix-jdbc-4.10.14.jar --dependencies=javax.api,javax.transaction.api
 
 # set jdbc-driver
 /subsystem=datasources/jdbc-driver=informix:add(driver-module-name="com.ibm.informix",driver-xa-datasource-class-name=com.informix.jdbcx.IfxXADataSource)

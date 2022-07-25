@@ -8,9 +8,9 @@
         <param name="enabled" value="${org.wildfly.datasources.informix.enabled, env.INFORMIX_ENABLED:true}"/>
         <param name="use-java-context" value="true" /> 
         <param name="jndi-name" value="${org.wildfly.datasources.informix.jndi-name,env.INFORMIX:java:jboss/datasources/${org.wildfly.datasources.informix.datasource,env.INFORMIX_DATASOURCE:WeatherDS}}"/>
-        <param name="connection-url" value="${org.wildfly.datasources.informix.connection-url,env.INFORMIX_URL:jdbc:informix-sqli://${org.wildfly.datasources.informix.host,env.INFORMIX_SERVICE_HOST,env.INFORMIX_HOST:localhost}:${org.wildfly.datasources.informix.port,env.INFORMIX_SERVICE_PORT,env.INFORMIX_PORT:9088}/${org.wildfly.datasources.informix.database,env.INFORMIX_DATABASE}}"/>
+        <param name="connection-url" value="${org.wildfly.datasources.informix.connection-url,env.INFORMIX_URL:jdbc:informix-sqli://${org.wildfly.datasources.informix.host,env.INFORMIX_SERVICE_HOST,env.INFORMIX_HOST:192.168.50.90}:${org.wildfly.datasources.informix.port,env.INFORMIX_SERVICE_PORT,env.INFORMIX_PORT:9088}/${org.wildfly.datasources.informix.database,env.INFORMIX_DATABASE:test01}}"/>
         <param name="driver-name" value="informix" /> 
-        <param name="user-name" value="${org.wildfly.datasources.informix.user-name,env.INFORMIX_USER}"/>
-        <param name="password" value="${org.wildfly.datasources.informix.password,env.INFORMIX_PASSWORD}"/>
+        <param name="user-name" value="${org.wildfly.datasources.informix.user-name,env.INFORMIX_USER:informix}"/>
+        <param name="password" value="${org.wildfly.datasources.informix.password,env.INFORMIX_PASSWORD:in4mix}"/>
     </feature>
 </layer-spec>

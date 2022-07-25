@@ -163,30 +163,33 @@
                             <groupId>com.redhat.examples</groupId>
                             <artifactId>postgresql-layer</artifactId>
                             <version>1.0.0</version>
-                        </feature-pack>
+                        </feature-pack> -->
                         
                         <feature-pack>
                             <groupId>com.redhat.examples</groupId>
                             <artifactId>informix-layer</artifactId>
                             <version>1.0.0</version>
-                        </feature-pack> -->
+                        </feature-pack>
                     </feature-packs>
                     <cloud />
                     <layers>
                         <layer>jaxrs-server</layer>
                         <layer>microprofile-platform</layer>
-                  <!--  <layer>informix-driver</layer>
-                        <layer>informix-datasource</layer>-->
+                        <layer>informix-driver</layer>
+                        <layer>informix-datasource</layer> 
                         <layer>jpa</layer>
                     </layers>
                     <cloud/>
+                    
                     <cli-sessions>
 						<cli-session>
 							<script-files>
-								<script>informix-datasource.cli</script>
+							<!--	<script>informix-datasource.cli</script>-->
+								<script>informix-driver.cli</script>
 							</script-files>
 						</cli-session>
 					</cli-sessions>
+					
                 </configuration>
                 <executions>
                     <execution>
