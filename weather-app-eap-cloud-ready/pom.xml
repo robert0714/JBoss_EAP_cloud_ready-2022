@@ -14,10 +14,10 @@
     <properties>
         <failOnMissingWebXml>false</failOnMissingWebXml>
    <!-- <version.server.bom>7.4.1.GA</version.server.bom>
-        <version.microprofile.bom>3.0.0.GA-7.4.1.GA</version.microprofile.bom> -->
+        <version.microprofile.bom>3.0.0.GA-7.4.1.GA</version.microprofile.bom>
         <bootable.jar.maven.plugin.version>4.1.0.Final-redhat-00001</bootable.jar.maven.plugin.version>
         <version.wildfly.galleon.pack>3.0.0.GA-redhat-00014</version.wildfly.galleon.pack> 
-        
+         -->
         <version.wildfly>26.1.1.Final</version.wildfly>
         <version.wildfly.maven.plugin>7.0.2.Final</version.wildfly.maven.plugin> 
     </properties>
@@ -124,38 +124,69 @@
     </dependencies>
     <build>
         <plugins>
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<configuration>
+					<transitive>false</transitive>
+					<artifactItems>
+						<artifactItem>
+							 <groupId>com.ibm.informix</groupId>
+						    <artifactId>jdbc</artifactId>
+						    <version>4.10.14</version>
+							<type>jar</type>
+							<overWrite>true</overWrite>
+							<outputDirectory>${project.build.directory}/</outputDirectory>
+							<destFileName>informix-jdbc-4.10.14.jar</destFileName>
+						</artifactItem>
+					</artifactItems>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-jar-maven-plugin</artifactId>
-                <version>${bootable.jar.maven.plugin.version}</version>
-          <!--  <version>${version.wildfly.maven.plugin}</version> -->
+   <!--         <version>${bootable.jar.maven.plugin.version}</version> -->
+               <version>${version.wildfly.maven.plugin}</version>
                 <configuration>
                     <feature-packs>
                         <feature-pack>
-                            <location>org.jboss.eap:wildfly-galleon-pack:${version.wildfly.galleon.pack}</location>
-                   <!--     <location>wildfly@maven(org.jboss.universe:community-universe)#${version.wildfly}</location>  -->
+               <!--        <location>org.jboss.eap:wildfly-galleon-pack:${version.wildfly.galleon.pack}</location>  -->
+                           <location>wildfly@maven(org.jboss.universe:community-universe)#${version.wildfly}</location>
                         </feature-pack>
                <!--     <feature-pack>
                             <groupId>com.redhat.examples</groupId>
                             <artifactId>postgresql-layer</artifactId>
                             <version>1.0.0</version>
-                        </feature-pack> -->
+                        </feature-pack>
                         
                         <feature-pack>
                             <groupId>com.redhat.examples</groupId>
                             <artifactId>informix-layer</artifactId>
                             <version>1.0.0</version>
-                        </feature-pack>
+                        </feature-pack> -->
                     </feature-packs>
                     <cloud />
                     <layers>
                         <layer>jaxrs-server</layer>
                         <layer>microprofile-platform</layer>
-                        <layer>informix-driver</layer>
-                        <layer>informix-datasource</layer>
+                  <!--  <layer>informix-driver</layer>
+                        <layer>informix-datasource</layer>-->
                         <layer>jpa</layer>
                     </layers>
                     <cloud/>
+                    <cli-sessions>
+						<cli-session>
+							<script-files>
+								<script>informix-datasource.cli</script>
+							</script-files>
+						</cli-session>
+					</cli-sessions>
                 </configuration>
                 <executions>
                     <execution>

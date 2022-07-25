@@ -1,0 +1,32 @@
+# add jdbc jar
+module add --name=com.ibm.informix --resources=target/informix-jdbc-4.10.14.jar --dependencies=javax.api,javax.transaction.api
+
+# set jdbc-driver
+/subsystem=datasources/jdbc-driver=informix:add(driver-module-name="com.ibm.informix",driver-xa-datasource-class-name=com.informix.jdbcx.IfxXADataSource)
+
+# set xa-datasource
+# refer: https://gist.github.com/mcupak/eeb99db45f59b12d0a7c69041b8038ca
+xa-data-source add --driver-name=informix   \
+ --name=WeatherDS    \ 
+ --jndi-name=java:jboss/datasources/WeatherDS \
+ --user-name=${org.wildfly.datasources.informix.user-name,env.INFORMIX_USER:informix} \
+ --password=${org.wildfly.datasources.informix.password,env.INFORMIX_PASSWORD:in4mix}  \
+ --xa-datasource-properties=[{IfxIFX_ISOLATION_LEVEL=2U,IfxIFX_LOCK_MODE_WAIT=26,  \
+   PortNumber=${org.wildfly.datasources.informix.port,env.INFORMIX_SERVICE_PORT,env.INFORMIX_PORT:9088},\
+   IfxIFXHOST=${org.wildfly.datasources.informix.host,env.INFORMIX_SERVICE_HOST,env.INFORMIX_HOST:192.168.50.90},\
+   DatabaseName=${org.wildfly.datasources.informix.database,env.INFORMIX_DATABASE:test01},\
+   ServerName=informix, \
+   IfxLOBCACHE=-1,   \
+   IfxNEWCODESET=${org.wildfly.datasources.informix.newcodeset,env.INFORMIX_NEWCODESET:8859_15,8859-1,819}  }]   \
+ --max-pool-size=100  \
+ --pool-prefill=true  \
+ --pool-use-strict-min=true \
+ --same-rm-override=false  \
+ --validate-on-match=true  \
+ --no-tx-separate-pool=true   \
+ --check-valid-connection-sql=select 1 from sysmaster:sysdual   \
+ --background-validation=true   \
+ --background-validation-millis=60000  \
+ --exception-sorter-class-name=org.jboss.jca.adapters.jdbc.extensions.informix.InformixExceptionSorter  \
+ --prepared-statements-cache-size=128  \
+ --statistics-enabled=true   --spy=true
