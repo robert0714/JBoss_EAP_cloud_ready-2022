@@ -297,3 +297,9 @@ This specification defines an easy to use and flexible system for application co
 To test it I put a file named microprofile-config.properties into the resources/META-INF directory of my application.
 You can see a property named openapi.ui.copyrightBy that contains my name and surname: you will see them in the footer component of the
 swagger ui interface that you already tested in the OpenAPI section.
+
+### Test in Cli
+```shell
+ java -jar weather-app-eap-cloud-ready/target/weather-app-cloud-ready-1.0-bootable.jar    -Dorg.wildfly.datasources.informix.user-name=informix -Dorg.wildfly.datasources.informix.password=in4mix -Dorg.wildfly.datasources.informix.connection-url=jdbc:informix-sqli://192.168.50.90:9088/test01:INFORMIXSERVER=informix;NEWCODESET=big5,8859-1,819;
+
+```
