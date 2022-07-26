@@ -176,16 +176,18 @@
                         <layer>jaxrs-server</layer>
                         <layer>microprofile-platform</layer>
                         <layer>informix-driver</layer>
-                        <layer>informix-datasource</layer> 
+                        <!--  --> 
+                         <layer>informix-datasource</layer>
                         <layer>jpa</layer>
-                    </layers>
+                    </layers> 
                     <cloud/>
                     
                     <cli-sessions>
 						<cli-session>
-							<script-files>
-							<!--	<script>informix-datasource.cli</script>-->
-								<script>informix-driver.cli</script>
+							<script-files>							
+								<script>deploy-informix-driver.cli</script>
+								<!--
+								<script>informix-xa-datasource.cli</script>-->
 							</script-files>
 						</cli-session>
 					</cli-sessions>
