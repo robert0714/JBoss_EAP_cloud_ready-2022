@@ -28,4 +28,5 @@ hs_err_pid*
 /**/target/
 .project
 .settings/
-
+/**/.classpath
+testsuite/bootablejar/.classpath

@@ -12,6 +12,7 @@
         <module>informix-database-layer</module>
         <module>postgresql-database-layer</module>
         <module>weather-app-eap-cloud-ready</module>
+		<module>testsuite</module>
     </modules>
 
     <properties>
