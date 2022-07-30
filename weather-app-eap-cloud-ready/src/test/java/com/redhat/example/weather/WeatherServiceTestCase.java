@@ -26,6 +26,7 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.asset.FileAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.resolver.api.maven.repository.MavenRemoteRepositories;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -54,12 +55,13 @@ public class WeatherServiceTestCase {
 		
 		
 		File[] files = configureResolver()
-				.workOffline() 
+				.withRemoteRepo(MavenRemoteRepositories.createRemoteRepository("Central", "https://repo1.maven.org/maven2/", "default"))
+//				.workOffline() 
 		        .withClassPathResolution(false)
 				.withMavenCentralRepo(false) 
 				.loadPomFromFile("pom.xml")
 				.importRuntimeDependencies()
-				.resolve("org.eclipse.microprofile.health:microprofile-health-api:3.1").withTransitivity().asFile();
+				.resolve("org.eclipse.microprofile.health:microprofile-health-api:3.1","org.testng:testng:7.6.1").withTransitivity().asFile();
 		
 		
 		war.addAsLibraries(files);
@@ -70,8 +72,11 @@ public class WeatherServiceTestCase {
 //	@Test 
 	public void testSetSelectedCountry() throws Exception {
 		logger.info("start SetSelectedCountry test");
-		MyResult myResponse = invokeFuture(url + "async/resource/simple");
-		assertEquals("magic number is: ", "MagicNumber [value=3]", myResponse.getResponse());
+		MyResult myResponse = invokeFuture(url + "api/country/en");
+		String responseContent = myResponse.getResponse();
+		System.out.println("---------------------------");
+		System.out.println(responseContent);
+		assertEquals("magic number is: ", "MagicNumber [value=3]", responseContent);
 		assertEquals("response is: ", true, myResponse.isOk());
 		logger.info("end rest receive messages test");
 	}

@@ -1,3 +1,5 @@
 # add jdbc jar
 #module add --name=com.ibm.informix --resources=weather-app-eap-cloud-ready/target/informix-jdbc-4.10.14.jar --dependencies=javax.api,javax.transaction.api
+#deploy --name=informix-jdbc --runtime-name=informix-jdbc.jar target/informix-jdbc-4.10.14.jar
+#deploy --name=informix-jdbc --runtime-name=informix-jdbc.jar ${ (!${user.dir}.contains("weather-app-eap-cloud-ready"))?"weather-app-eap-cloud-ready/":}target/informix-jdbc-4.10.14.jar
 deploy --name=informix-jdbc --runtime-name=informix-jdbc.jar weather-app-eap-cloud-ready/target/informix-jdbc-4.10.14.jar
