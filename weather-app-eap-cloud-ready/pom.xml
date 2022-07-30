@@ -19,7 +19,15 @@
         <version.wildfly.galleon.pack>3.0.0.GA-redhat-00014</version.wildfly.galleon.pack> 
          -->
         <version.wildfly>26.1.1.Final</version.wildfly>
+        <version.jboss.bom>26.1.1.Final</version.jboss.bom>
         <version.wildfly.maven.plugin>7.0.2.Final</version.wildfly.maven.plugin> 
+        
+        <!-- other plugin versions -->
+        <version.compiler.plugin>3.8.1</version.compiler.plugin>
+        <version.surefire.plugin>2.22.2</version.surefire.plugin>
+        <version.failsafe.plugin>2.22.2</version.failsafe.plugin>
+        
+        <version.arquillian.persistence>1.0.0.Alpha7</version.arquillian.persistence>
     </properties>
 
     <dependencyManagement>
@@ -121,6 +129,115 @@
             <artifactId>microprofile-config-api</artifactId>
             <scope>provided</scope>
         </dependency>
+        
+        
+       <!-- Arquillian allows you to test enterprise code such as EJBs and Transactional(JTA) 
+			JPA from JUnit/TestNG -->
+		<dependency>
+			<groupId>org.jboss.arquillian.junit</groupId>
+			<artifactId>arquillian-junit-container</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.arquillian.protocol</groupId>
+			<artifactId>arquillian-protocol-servlet</artifactId>
+			<scope>test</scope>
+		</dependency>
+	<!--	<dependency>
+            <groupId>org.jboss.arquillian.extension</groupId>
+            <artifactId>arquillian-persistence-dbunit</artifactId>
+            <version>${version.arquillian.persistence}</version>
+            <scope>test</scope>
+        </dependency>
+		end::d[] -->
+		
+		<dependency>
+			<groupId>net.minidev</groupId>
+			<artifactId>json-smart</artifactId>
+			<version>2.4.8</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<version>3.21.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.shrinkwrap.resolver</groupId>
+			<artifactId>shrinkwrap-resolver-api</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.shrinkwrap.resolver</groupId>
+			<artifactId>shrinkwrap-resolver-spi</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.shrinkwrap.resolver</groupId>
+			<artifactId>shrinkwrap-resolver-api-maven</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.shrinkwrap.resolver</groupId>
+			<artifactId>shrinkwrap-resolver-spi-maven</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.shrinkwrap.resolver</groupId>
+			<artifactId>shrinkwrap-resolver-impl-maven</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.shrinkwrap.resolver</groupId>
+			<artifactId>shrinkwrap-resolver-impl-maven-archive</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.plexus</groupId>
+			<artifactId>plexus-utils</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.jboss</groupId>
+		    <artifactId>jboss-ejb-client</artifactId>
+		    <version>4.0.44.Final</version>
+		    <scope>test</scope>
+		</dependency>
+		
+<!--    <dependency>
+			<groupId>org.wildfly.arquillian</groupId>
+			<artifactId>wildfly-arquillian-container-managed</artifactId>
+			<scope>test</scope>
+		</dependency>
+		 -->
+		<dependency>
+			<groupId>org.wildfly</groupId>
+			<artifactId>wildfly-testsuite-shared</artifactId>
+			<version>${version.jboss.bom}</version>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>net.minidev</groupId>
+					<artifactId>json-smart</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-client</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jackson2-provider</artifactId>
+			<scope>test</scope>
+		</dependency>
     </dependencies>
     <build>
         <plugins>
@@ -145,9 +262,50 @@
 						<goals>
 							<goal>copy</goal>
 						</goals>
-					</execution>
+					</execution>					
 				</executions>
 			</plugin>
+			<plugin>
+		        <artifactId>maven-surefire-plugin</artifactId>
+		        <version>${version.surefire.plugin}</version>
+		        <configuration>
+		            <enableAssertions>true</enableAssertions>
+		            <!-- System properties to forked surefire JVM which runs clients. -->
+		            <failIfNoTests>false</failIfNoTests>
+		            <systemPropertyVariables>
+		                <jboss.home>${basedir}/target/wildfly-${version.jboss.bom}</jboss.home>
+		            </systemPropertyVariables>
+		        </configuration>
+		        <executions>
+		            <!-- Disable default-test execution. -->
+		            <execution>
+		                <id>default-test</id>
+		                <goals>
+		                    <goal>test</goal>
+		                </goals>
+		                <phase>none</phase>
+		            </execution>
+		            <execution>
+		                <id>basic-integration-default-full.surefire</id>
+		                <phase>test</phase>
+		                <goals>
+		                    <goal>test</goal>
+		                </goals>
+		                <configuration>
+		                    <!-- Tests to execute. Overriden in webProfileExclusion.profile . -->
+		                    <includes>
+		                        <include>com/redhat/example/weather/*TestCase.java</include>
+		                    </includes>
+		                    <!-- Parameters to test cases. -->
+		                    <systemPropertyVariables
+												combine.children="append">
+		                        <jboss.server.config.file.name>standalone-full.xml</jboss.server.config.file.name>
+		                        <jboss.options>-Dee8.preview.mode=true</jboss.options>
+		                    </systemPropertyVariables>
+		                </configuration>
+		            </execution>
+		        </executions>
+		    </plugin>
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-jar-maven-plugin</artifactId>
@@ -203,4 +361,196 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+	   <profile>
+	      <id>basic.integration.tests.profile</id>
+	      <activation>
+	         <activeByDefault>false</activeByDefault>
+	      </activation>
+	      <dependencies>
+	         <!-- keypoint to Test temp wilfly  -->
+	         <dependency>
+	            <groupId>org.wildfly.arquillian</groupId>
+	            <artifactId>wildfly-arquillian-container-managed</artifactId>
+	            <scope>test</scope>
+	         </dependency>
+	      </dependencies>
+	      <!-- Server configuration executions. -->
+	      <build>
+	         <testResources>
+	            <testResource>
+	               <directory>src/test/java</directory>
+	               <excludes>
+	                  <exclude>**/*.java</exclude>
+	               </excludes>
+	            </testResource>
+	         </testResources>
+	         <plugins>
+	            <plugin>
+	               <groupId>org.apache.maven.plugins</groupId>
+	               <artifactId>maven-dependency-plugin</artifactId>
+	               <executions>
+	                  <execution>
+	                     <id>unpack</id>
+	                     <phase>process-test-classes</phase>
+	                     <goals>
+	                        <goal>unpack</goal>
+	                     </goals>
+	                     <configuration>
+	                        <artifactItems>
+	                           <artifactItem>
+	                              <groupId>org.wildfly</groupId>
+	                              <artifactId>wildfly-dist</artifactId>
+	                              <version>${version.wildfly}</version>
+	                              <type>zip</type>
+	                              <overWrite>false</overWrite>
+	                              <outputDirectory>target</outputDirectory>
+	                           </artifactItem>
+	                        </artifactItems>
+	                     </configuration>
+	                  </execution>
+	               </executions>
+	            </plugin>
+	            <!-- Sets general surefire system properties. These can be overridden 
+							by inheriting plugin configurations. -->
+	            <plugin>
+	               <artifactId>maven-surefire-plugin</artifactId>
+	               <version>${version.surefire.plugin}</version>
+	               <configuration>
+	                  <skipTests>${ts.skipTests}</skipTests>
+	                  <enableAssertions>true</enableAssertions>
+	                  <!-- System properties to forked surefire JVM which runs clients. -->
+	                  <failIfNoTests>false</failIfNoTests>
+	                  <redirectTestOutputToFile>${testLogToFile}</redirectTestOutputToFile>
+	                  <systemPropertyVariables>
+	                     <jboss.home>${basedir}/target/wildfly-${version.wildfly}</jboss.home>
+	                  </systemPropertyVariables>
+	               </configuration>
+	               <executions>
+	                  <!-- Disable default-test execution. -->
+	                  <execution>
+	                     <id>default-test</id>
+	                     <goals>
+	                        <goal>test</goal>
+	                     </goals>
+	                     <phase>none</phase>
+	                  </execution>
+	                  <execution>
+	                     <id>basic-integration-default-full.surefire</id>
+	                     <phase>test</phase>
+	                     <goals>
+	                        <goal>test</goal>
+	                     </goals>
+	                     <configuration>
+	                        <!-- Tests to execute. Overriden in webProfileExclusion.profile 
+											. -->
+	                        <includes>
+	                           <include>com/redhat/example/weather/*TestCase.java</include>
+	                        </includes>
+	                        <!-- Parameters to test cases. -->
+	                        <systemPropertyVariables combine.children="append">
+	                           <jboss.server.config.file.name>standalone-full.xml</jboss.server.config.file.name>
+	                           <jboss.options>-Dee8.preview.mode=true</jboss.options>
+	                        </systemPropertyVariables>
+	                     </configuration>
+	                  </execution>
+	               </executions>
+	            </plugin>
+	         </plugins>
+	      </build>
+	   </profile>
+	   <profile>
+	      <!-- An optional Arquillian testing profile that executes tests in your WildFly / JBoss EAP instance.
+	                 This profile will start a new WildFly / JBoss EAP instance, and execute the test, shutting it down when done.
+	                 Run with: mvn clean verify -Parq-managed -->
+	      <id>arq-managed</id>
+	      <activation>
+	         <activeByDefault>true</activeByDefault>
+	      </activation>
+	      <dependencies>
+	         <dependency>
+	            <groupId>org.wildfly.arquillian</groupId>
+	            <artifactId>wildfly-arquillian-container-managed</artifactId>
+	            <scope>test</scope>
+	         </dependency>
+	      </dependencies>
+	      <build>
+	         <plugins>
+	            <plugin>
+	               <groupId>org.apache.maven.plugins</groupId>
+	               <artifactId>maven-failsafe-plugin</artifactId>
+	               <version>${version.failsafe.plugin}</version>
+	               <executions>
+	                  <execution>
+	                     <goals>
+	                        <goal>integration-test</goal>
+	                        <goal>verify</goal>
+	                     </goals>
+	                  </execution>
+	               </executions>
+	               <configuration>
+	                  <!-- Configuration for Arquillian: -->
+	                  <systemPropertyVariables>
+	                     <!-- Defines the container qualifier in "arquillian.xml" -->
+	                     <arquillian.launch>widlfly-managed</arquillian.launch>
+	                  </systemPropertyVariables>
+	               </configuration>
+	            </plugin>
+	         </plugins>
+	      </build>
+	   </profile>
+	   <profile>
+	      <!-- An optional Arquillian testing profile that executes tests in a remote JBoss EAP instance.
+	                 Run with: mvn clean verify -Parq-remote -->
+	      <id>arq-remote</id>
+	      <activation>
+	         <activeByDefault>false</activeByDefault>
+	      </activation>
+	      <dependencies>
+	         <dependency>
+	            <groupId>org.wildfly.arquillian</groupId>
+	            <artifactId>wildfly-arquillian-container-remote</artifactId>
+	            <scope>test</scope>
+	         </dependency>
+	      </dependencies>
+	      <build>
+	         <plugins>
+	            <plugin>
+	               <groupId>org.apache.maven.plugins</groupId>
+	               <artifactId>maven-failsafe-plugin</artifactId>
+	               <version>${version.failsafe.plugin}</version>
+	               <executions>
+	                  <execution>
+	                     <goals>
+	                        <goal>integration-test</goal>
+	                        <goal>verify</goal>
+	                     </goals>
+	                  </execution>
+	               </executions>
+	               <configuration>
+	                  <!-- Configuration for Arquillian: -->
+	                  <systemPropertyVariables>
+	                     <!-- Defines the container qualifier in "arquillian.xml" -->
+	                     <arquillian.launch>widlfly-remote</arquillian.launch>
+	                  </systemPropertyVariables>
+	               </configuration>
+	            </plugin>
+	            <!-- The WildFly plugin deploys your war to a local JBoss AS container -->
+				<plugin>
+					<groupId>org.wildfly.plugins</groupId>
+					<artifactId>wildfly-jar-maven-plugin</artifactId> 
+					<version>${version.wildfly.maven.plugin}</version>
+					<configuration>
+	             <!--  <hostname>192.168.18.30</hostname> -->
+	                    <hostname>localhost</hostname>
+	                    <port>9990</port>
+	                    <username>admin</username>
+	                    <password>123456</password>
+	            <!-- <jbossHome>C:/tools/wildfly-8.0.0.Final</jbossHome> -->
+					</configuration>				
+				</plugin>
+	         </plugins>
+	      </build>
+	   </profile>
+	</profiles>
 </project>

@@ -28,5 +28,10 @@ hs_err_pid*
 /**/target/
 .project
 .settings/
-/**/.classpath
+*/**/.classpath
 testsuite/bootablejar/.classpath
+weather-app-eap-cloud-ready/.classpath
+*/.classpath/
+weather-app-eap-cloud-ready/.classpath
+*.classpath
+
