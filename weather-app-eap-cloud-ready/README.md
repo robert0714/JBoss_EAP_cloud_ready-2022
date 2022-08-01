@@ -299,7 +299,12 @@ You can see a property named openapi.ui.copyrightBy that contains my name and su
 swagger ui interface that you already tested in the OpenAPI section.
 
 ### Test in Cli
+* Reference 
+  * https://openliberty.io/guides/microshed-testing.html
+  * https://docs.wildfly.org/bootablejar/
 ```shell
+mvn wildfly-jar:dev-watch
+
  java -jar weather-app-eap-cloud-ready/target/weather-app-cloud-ready-1.0-bootable.jar    -Dorg.wildfly.datasources.informix.user-name=informix -Dorg.wildfly.datasources.informix.password=in4mix -Dorg.wildfly.datasources.informix.connection-url=jdbc:informix-sqli://192.168.50.90:9088/test01:INFORMIXSERVER=informix;NEWCODESET=big5,8859-1,819;
 
 ```

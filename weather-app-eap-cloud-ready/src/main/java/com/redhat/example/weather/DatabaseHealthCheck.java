@@ -13,7 +13,7 @@ import org.eclipse.microprofile.health.Readiness;
 /**
  * Class the implements the microprofile readiness checks
  * 
- * @author Mauro Vocale
+ * @author robert
  */
 @Readiness
 @ApplicationScoped
@@ -23,8 +23,8 @@ public class DatabaseHealthCheck implements HealthCheck {
     public HealthCheckResponse call() {
 
         HealthCheckResponseBuilder responseBuilder = HealthCheckResponse.named("Database connection health check");
-        String hostName = (System.getenv("WEATHER_POSTGRESQL_SERVICE_HOST") != null) ? System.getenv("WEATHER_POSTGRESQL_SERVICE_HOST") : "localhost";
-        Integer port = (System.getenv("WEATHER_POSTGRESQL_SERVICE_PORT") != null) ? Integer.parseInt(System.getenv("WEATHER_POSTGRESQL_SERVICE_PORT")) : 5432;
+        String hostName = (System.getenv("INFORMIX_HOST") != null) ? System.getenv("INFORMIX_HOST") : "localhost";
+        Integer port = (System.getenv("INFORMIX_SERVICE_PORT") != null) ? Integer.parseInt(System.getenv("INFORMIX_SERVICE_PORT")) : 9088;
 
         try {
             pingServer(hostName, port);
