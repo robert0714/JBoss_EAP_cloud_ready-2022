@@ -19,15 +19,16 @@ xa-data-source add --driver-name=informix   \
    IfxLOBCACHE=-1,   \
    IfxNEWCODESET=${org.wildfly.datasources.informix.newcodeset,env.INFORMIX_NEWCODESET:"8859_15,8859-1,819"} \
    }]   \
+ --min-pool-size=1  \
  --max-pool-size=100  \
  --pool-prefill=true  \
  --pool-use-strict-min=true \
  --same-rm-override=false  \
  --validate-on-match=true  \
  --no-tx-separate-pool=true   \
- --check-valid-connection-sql=select 1 from sysmaster:sysdual   \
+ --check-valid-connection-sql=${org.wildfly.datasources.informix.check-valid-connection-sql,env.INFORMIX_CHECK_VALID_CONNECTION_SQL:"select 1 from sysmaster:sysdual"}   \
  --background-validation=true   \
- --background-validation-millis=60000  \
+ --background-validation-millis=30000  \
  --exception-sorter-class-name=org.jboss.jca.adapters.jdbc.extensions.informix.InformixExceptionSorter  \
- --prepared-statements-cache-size=128  \
- --statistics-enabled=true   --spy=true
+ --prepared-statements-cache-size=0  \
+ --statistics-enabled=true   --idle-timeout-minutes=10   --spy=true
