@@ -16,3 +16,21 @@ To install the entire demo project on Openshift, remote cluster or local Red Hat
 ```
 
 Remember to login to Openshift environment before launch the script.
+
+## As Shared libraries
+* Add configuration file in the below location
+  * **ejb**: ${ejb_project_base}**/src/main/resources/META-INF/jboss-deployment-structure.xml**
+  * **ear**: ${ear_project_base}**/src/main/application/META-INF/jboss-deployment-structure.xml**
+  * **war**: ${war_project_base}**/src/main/webapp/WEB-INF/jboss-deployment-structure.xml**
+* Its content is :
+    ```xml
+    <?xml version="1.0" encoding="UTF-8"?>
+    <jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.2">
+      <deployment>
+       <dependencies>
+         <module name="com.ibm.informix"/>
+       </dependencies>
+      </deployment>
+    </jboss-deployment-structure>
+  
+    ```
