@@ -34,3 +34,25 @@ Remember to login to Openshift environment before launch the script.
     </jboss-deployment-structure>
   
     ```
+## Add wildfly bootable jar's webconsole
+* To modify the configuration in pom.xml
+    ```xml
+    (ommited...)
+    <groupId>org.wildfly.plugins</groupId>
+    <artifactId>wildfly-jar-maven-plugin</artifactId>
+    <version>${version.wildfly.maven.plugin}</version>
+    <configuration>
+        <feature-packs>
+            <feature-pack>
+                <location>wildfly@maven(org.jboss.universe:community-universe)#${wildfly.version}</location>
+            </feature-pack>						
+        </feature-packs>
+    <layers>						
+        <layer>web-console</layer> 
+    </layers>
+    (ommited...)  
+    ```
+ * jboss-cli
+ ```shell
+ /core-service=management/management-interface=http-interface:write-attribute(name=console-enabled, value=true)
+ ```
