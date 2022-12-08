@@ -72,7 +72,7 @@ Required configuration
 * `INFORMIX_URL`
 
   * Description: Defines the connection URL for the datasource. 
-  * Default Value: `jdbc:mysql://${INFORMIX_HOST}:${INFORMIX_PORT}/${INFORMIX_DATABASE}`
+  * Default Value: `jdbc:informix-sqli://${INFORMIX_HOST}:${INFORMIX_PORT}/${INFORMIX_DATABASE}`
   * Required: True if `INFORMIX_PORT/HOST/DATABASE` are not set.
   * System Property: `org.wildfly.datasources.infomix.connection-url`
 
@@ -98,11 +98,6 @@ Optional configuration
   * Default Value: `10000`
   * System Property: `org.wildfly.datasources.infomix.background-validation-millis`
 
-* `INFORMIX_CONNECTION_CHECKER`
-
-  * Description: Specifies a connection checker class that is used to validate connections. Valid value: `org.jboss.jca.adapters.jdbc.extensions.infomix.MySQLValidConnectionChecker`
-  * Default Value: `org.jboss.jca.adapters.jdbc.extensions.infomix.MySQLValidConnectionChecker`
-  * System Property: `org.wildfly.datasources.infomix.valid-connection-checker-class-name`
 
 * `INFORMIX_DATASOURCE` (or `OPENSHIFT_INFORMIX_DATASOURCE`)
 
@@ -118,8 +113,8 @@ Optional configuration
 
 * `INFORMIX_EXCEPTION_SORTER`
 
-  * Description: Specifies the exception sorter class that is used to properly detect and clean up after fatal database connection exceptions. Valid value: `org.jboss.jca.adapters.jdbc.extensions.infomix.MySQLExceptionSorter`
-  * Default Value: `org.jboss.jca.adapters.jdbc.extensions.infomix.MySQLExceptionSorter`
+  * Description: Specifies the exception sorter class that is used to properly detect and clean up after fatal database connection exceptions. Valid value: `org.jboss.jca.adapters.jdbc.extensions.informix.InformixExceptionSorter`
+  * Default Value: `org.jboss.jca.adapters.jdbc.extensions.informix.InformixExceptionSorter`
   * System Property: `org.wildfly.datasources.infomix.exception-sorter-class-name`
 
 * `INFORMIX_FLUSH_STRATEGY`
