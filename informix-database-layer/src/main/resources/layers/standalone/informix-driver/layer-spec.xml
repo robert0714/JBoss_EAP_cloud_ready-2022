@@ -7,6 +7,12 @@
             <param name="driver-xa-datasource-class-name" value="com.informix.jdbcx.IfxXADataSource"/>
             <param name="driver-module-name" value="com.ibm.informix"/>
         </feature>
+        <feature spec="subsystem.datasources.jdbc-driver">
+            <param name="driver-name" value="informixNonXA"/>
+            <param name="jdbc-driver" value="informixNonXA"/> 
+            <param name="driver-class-name" value="com.informix.jdbc.IfxDriver"/>
+            <param name="driver-module-name" value="com.ibm.informix"/>
+        </feature>
     </feature>
     <packages>
         <package name="com.ibm.informix"/>

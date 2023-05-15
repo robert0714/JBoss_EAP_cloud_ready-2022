@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?> 
 <module xmlns="urn:jboss:module:1.0" name="com.ibm.informix" >
-	<resources>
+	<resources> 
+           <!-- Using the Informix JDBC driver's groupID & artifactID  -->
 		<artifact name="${com.ibm.informix:jdbc}"/>
 	</resources>
 	<dependencies>
